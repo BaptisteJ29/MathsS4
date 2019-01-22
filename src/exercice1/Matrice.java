@@ -6,80 +6,151 @@ public class Matrice {
 
 	private double[][] matrice;
 	private int dimension;
+	private DeterminantMatrice determinant;
 
-	public Matrice(int dimension) {
-		this.dimension = dimension;
+	public Matrice() {
+		this.matrice = new double[this.dimension][this.dimension];
+		this.creaMatrice();
+		this.determinant = new DeterminantMatrice();
+	}
+	
+//	public Matrice(int dimension) {
+//		this.dimension = dimension;
+//		this.determinant = new DeterminantMatrice();
+//		this.matrice = new double[this.dimension][this.dimension];
+//	}
+	
+	public Matrice(double[][] matrice) {
+		this();
+		this.matrice = matrice;
 	}
 
-	public void creaMatrice() {
+	private void creaMatrice() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Veuillez saisir la dimension de la matrice :");
-		String str = sc.nextLine();
-		double[][] matrice = new double[Integer.parseInt(str)][Integer.parseInt(str)];
-		System.out.println("Vous avez saisi : " + str);
-		for (int i = 0; i < (Integer.parseInt(str)); i++) {
-			for (int j = 0; j < Integer.parseInt(str); j++) {
+//		String str = "";
+		
+//		System.out.println("Veuillez saisir la dimension de la matrice :");
+//		str = sc.nextLine();
+		this.demanderDimension();
+		
+//		double[][] matrice = new double[Integer.parseInt(str)][Integer.parseInt(str)];
+//		System.out.println("Vous avez saisi : " + str);
+		
+//		for (int i = 0; i < (Integer.parseInt(str)); i++) {
+//			for (int j = 0; j < Integer.parseInt(str); j++) {
+//				System.out.println("Saisir la valeur pour les coordonnées : " + (i + 1) + " : " + (j + 1));
+//				this.matrice[i][j] = Integer.parseInt(sc.nextLine());
+//			}
+//		}
+		
+		for (int i = 0; i < this.dimension; i++) {
+			for (int j = 0; j < this.dimension; j++) {
 				System.out.println("Saisir la valeur pour les coordonnées : " + (i + 1) + " : " + (j + 1));
-				String valeur = sc.nextLine();
-				matrice[i][j] = Integer.parseInt(valeur);
+				this.matrice[i][j] = sc.nextDouble();
 			}
 		}
-		afficherMatrice(matrice, dimension);
+		
+		this.afficherMatrice(matrice, dimension);
+		sc.close();
 	}
 
 	public void afficherMatrice(double[][] matrice, int dimension) {
+		StringBuilder stringBuilder = new StringBuilder();
 		for (int i = 0; i < matrice.length; i++) {
+			stringBuilder.append("| ");
 			for (int j = 0; j < matrice[i].length; j++) {
-				System.out.print(matrice[i][j] + " ");
+//				System.out.print(matrice[i][j] + " ");
+				stringBuilder.append(this.getValueAt(i, j));
+				stringBuilder.append(" ");
 			}
-			System.out.println();
+			stringBuilder.append("|\n");
+//			System.out.println();
 		}
+		
+		System.out.println(stringBuilder.toString());
+	}
+	
+	private void demanderDimension() {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Veuillez saisir la dimension de la matrice :");
+		this.dimension = sc.nextInt();
+		
+		System.out.println("Vous avez saisi : " + this.dimension);
 	}
 
-	public double test(double[][] matriceT) {
-		double[][] matriceTempo = new double[matriceT.length - 1][matriceT.length - 1];
-		int l = 0, c = 0;
-		double det = 0;
+//	public double test(double[][] matriceSi) {
+//		if (matriceSi.length == 2) {
+//			return (matriceSi[0][0] * matriceSi[1][1]) - (matriceSi[1][0] * matriceSi[0][1]);
+//		} else {
+//			double[][] matriceTempo = new double[matriceSi.length - 1][matriceSi.length - 1];
+//			int l = 0, c = 0;
+//			double det = 0;
+//
+//			// System.out.println();
+//			for (int p = 0; p < matriceSi.length; p++) {
+//				l = 0;
+//				c = 0;
+//				for (int i = 1; i < matriceSi.length; i++) {
+//					c = 0;
+//					for (int j = 0; j < matriceSi[0].length; j++) {
+//
+//						if (i != 0 && p != j) {
+//							matriceTempo[l][c] = matriceSi[i][j];
+//							c++;
+//						}
+//					}
+//					l++;
+//				}
+//				// afficherMatrice(matriceTempo, 3);
+//
+//				if (matriceTempo.length == 2) {
+//					if ((((p + 1) + 1) % 2) == 0) {
+//						det += matriceSi[0][p]
+//								* ((matriceTempo[0][0] * matriceTempo[1][1]) - (matriceTempo[1][0] * matriceTempo[0][1]));
+//						// System.out.println(" + Le Déterminant est : " + (det) +
+//						// "");
+//					} else {
+//						det -= matriceSi[0][p]
+//								* ((matriceTempo[0][0] * matriceTempo[1][1]) - (matriceTempo[1][0] * matriceTempo[0][1]));
+//						// System.out.println(" - Le Déterminant est : " + (det) +
+//						// "");
+//					}
+//				} else {
+//					if ((((p + 1) + 1) % 2) == 0) {
+//						det += test(matriceTempo) * matriceSi[0][p];
+//					} else {
+//						det -= test(matriceTempo) * matriceSi[0][p];
+//					}
+//				}
+//			}
+//			// System.out.println("Determinant de la matrice finale : " + det +
+//			// "\n");
+//			return det;
+//		}
+//	}
 
-		// System.out.println();
-		for (int p = 0; p < matriceT.length; p++) {
-			l = 0;
-			c = 0;
-			for (int i = 1; i < matriceT.length; i++) {
-				c = 0;
-				for (int j = 0; j < matriceT[0].length; j++) {
+	public int getDimension() {
+		return this.dimension;
+	}
+	
+	public double getValueAt(int x, int y) {
+		return this.matrice[x][y];
+	}
+	
+	public double getLengthAtX(int x) {
+		return this.matrice[x].length;
+	}
+	
+	public double getLengthAtY(int y) {
+		return this.matrice[y].length;
+	}
+	
+	public double getDeterminant() {
+		return this.determinant.getDeterminant(this);
+	}
 
-					if (i != 0 && p != j) {
-						matriceTempo[l][c] = matriceT[i][j];
-						c++;
-					}
-				}
-				l++;
-			}
-			// afficherMatrice(matriceTempo, 3);
-
-			if (matriceTempo.length == 2) {
-				if ((((p + 1) + 1) % 2) == 0) {
-					det += matriceT[0][p]
-							* ((matriceTempo[0][0] * matriceTempo[1][1]) - (matriceTempo[1][0] * matriceTempo[0][1]));
-					// System.out.println(" + Le Déterminant est : " + (det) +
-					// "");
-				} else {
-					det -= matriceT[0][p]
-							* ((matriceTempo[0][0] * matriceTempo[1][1]) - (matriceTempo[1][0] * matriceTempo[0][1]));
-					// System.out.println(" - Le Déterminant est : " + (det) +
-					// "");
-				}
-			} else {
-				if ((((p + 1) + 1) % 2) == 0) {
-					det += test(matriceTempo) * matriceT[0][p];
-				} else {
-					det -= test(matriceTempo) * matriceT[0][p];
-				}
-			}
-		}
-		// System.out.println("Determinant de la matrice finale : " + det +
-		// "\n");
-		return det;
+	public void setMatrice(double[][] matrice) {
+		this.matrice = matrice;
 	}
 }
