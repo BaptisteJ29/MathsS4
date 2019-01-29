@@ -7,13 +7,13 @@ public class DeterminantMatrice {
 	}
 
 	private double calculDeterminant(Matrice matriceSi) {
-		// if (matriceSi.getDimension() == 2)
-		// return this.calculDetMatriceCarre2(matriceSi);
-		// else
-		// return this.calculDetMatriceCarreSup2(matriceSi);
-		calculMatriceExposant(matriceSi);
+		if (matriceSi.getDimension() == 2)
+			return this.calculDetMatriceCarre2(matriceSi);
+		else
+			return this.calculDetMatriceCarreSup2(matriceSi);
+//		calculMatriceExposant(matriceSi);
 
-		return 0;
+//		return 0;
 	}
 
 	private double calculDetMatriceCarre2(Matrice matriceSi) {
@@ -88,37 +88,48 @@ public class DeterminantMatrice {
 			// matriceTempo.getDimension());
 			return matriceTempo;
 		}
+		return matriceTempo;
 	}
 
-static int[][] multiplier(int[][] MA, int[][] MB) throws Exception{
-	
-	int[][] MC;
-    
-	int l,c;
-	 
-	 l = 0;
-     for (int i = 0;i < MA.length;i++){ /// Ligne de MA
-    	 c = 0;
-        for (int n = 0;n < MB[0].length;n++){ /// colonne de  MB
-        	
-            int calcul= 0;
-            for (int m = 0;m < MB.length;m++){  /// colone de MA et ligne de MB
-            	
-           	 System.out.printf("%4d    * %4d", MA[i][m],MB[m][n]);
-           	
-                calcul += MA[i][m] * MB[m][n];
-                if (m == 0)
-               	System.out.printf("    + ");
-            }
+//	static int[][] multiplier(int[][] MA, int[][] MB) throws Exception {
+//
+//		int[][] MC;
+//
+//		int l, c;
+//
+//		l = 0;
+//		for (int i = 0; i < MA.length; i++) { /// Ligne de MA
+//			c = 0;
+//			for (int n = 0; n < MB[0].length; n++) { /// colonne de MB
+//
+//				int calcul = 0;
+//				for (int m = 0; m < MB.length; m++) { /// colone de MA et ligne de MB
+//
+//					System.out.printf("%4d    * %4d", MA[i][m], MB[m][n]);
+//
+//					calcul += MA[i][m] * MB[m][n];
+//					if (m == 0)
+//						System.out.printf("    + ");
+//				}
+//
+//				System.out.printf(" = %4d   ", calcul);
+//				MC[l][c] = calcul;
+//				c++;
+//			}
+//			System.out.printf("n");
+//			l++;
+//		}
+//
+//		return MC;
+//	}
 
-            System.out.printf(" = %4d   ",calcul);
-            MC[l][c] = calcul;
-            c++;
-        }
-        System.out.printf("n");
-        l++;
-     }
-     
-     
-	return MC;
+	public String getDeterminantVandermonde(MatriceVandermonde matriceV) {
+		return this.calculDetMatriceVandermonde(matriceV);
+	}
+
+	private String calculDetMatriceVandermonde(MatriceVandermonde matriceV) {
+		
+		
+		return null;
+	}
 }
