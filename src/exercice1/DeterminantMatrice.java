@@ -2,20 +2,18 @@ package exercice1;
 
 public class DeterminantMatrice {
 
-	private double determinant;
-
-	public DeterminantMatrice() {
-		super();
-		this.determinant = 0.0;
-	}
-
 	public double getDeterminant(Matrice matriceSi) {
 		return this.calculDeterminant(matriceSi);
 	}
 
 	private double calculDeterminant(Matrice matriceSi) {
-		return (matriceSi.getDimension() == 2) ? this.calculDetMatriceCarre2(matriceSi)
-				: this.calculDetMatriceCarreSup2(matriceSi);
+		// if (matriceSi.getDimension() == 2)
+		// return this.calculDetMatriceCarre2(matriceSi);
+		// else
+		// return this.calculDetMatriceCarreSup2(matriceSi);
+		calculMatriceExposant(matriceSi);
+
+		return 0;
 	}
 
 	private double calculDetMatriceCarre2(Matrice matriceSi) {
@@ -26,6 +24,7 @@ public class DeterminantMatrice {
 	private double calculDetMatriceCarreSup2(Matrice matriceSi) {
 		Matrice matriceTempo = new Matrice(new double[matriceSi.getDimension() - 1][matriceSi.getDimension() - 1]);
 		int l = 0, c = 0;
+		double determinant = 0;
 
 		for (int p = 0; p < matriceSi.getDimension(); p++) {
 			l = 0;
@@ -44,71 +43,82 @@ public class DeterminantMatrice {
 
 			if (matriceTempo.getDimension() == 2) {
 				if ((((p + 1) + 1) % 2) == 0) {
-					this.determinant += matriceSi.getValueAt(0, p)
-							* ((matriceTempo.getValueAt(0, 0) * matriceTempo.getValueAt(1, 1))
-									- (matriceTempo.getValueAt(1, 0) * matriceTempo.getValueAt(0, 1)));
+					determinant += matriceSi.getValueAt(0, p) * calculDetMatriceCarre2(matriceTempo);
 				} else {
-					this.determinant -= matriceSi.getValueAt(0, p)
-							* ((matriceTempo.getValueAt(0, 0) * matriceTempo.getValueAt(1, 1))
-									- (matriceTempo.getValueAt(1, 0) * matriceTempo.getValueAt(0, 1)));
+					determinant -= matriceSi.getValueAt(0, p) * calculDetMatriceCarre2(matriceTempo);
 				}
 			} else {
 				if ((((p + 1) + 1) % 2) == 0) {
-					this.determinant += this.calculDeterminant(matriceTempo) * matriceSi.getValueAt(0, p);
+					determinant += calculDetMatriceCarreSup2(matriceTempo) * matriceSi.getValueAt(0, p);
 				} else {
-					this.determinant -= this.calculDeterminant(matriceTempo) * matriceSi.getValueAt(0, p);
+					determinant -= calculDetMatriceCarreSup2(matriceTempo) * matriceSi.getValueAt(0, p);
 				}
 			}
 		}
-		return this.determinant;
+		return determinant;
 	}
-}
 
-//if (matriceSi.length == 2) {
-//	return (matriceSi[0][0] * matriceSi[1][1]) - (matriceSi[1][0] * matriceSi[0][1]);
-//} else {
-//	double[][] matriceTempo = new double[matriceSi.length - 1][matriceSi.length - 1];
-//	int l = 0, c = 0;
-//	double det = 0;
-//
-//	// System.out.println();
-//	for (int p = 0; p < matriceSi.length; p++) {
-//		l = 0;
-//		c = 0;
-//		for (int i = 1; i < matriceSi.length; i++) {
-//			c = 0;
-//			for (int j = 0; j < matriceSi[0].length; j++) {
-//
-//				if (i != 0 && p != j) {
-//					matriceTempo[l][c] = matriceSi[i][j];
-//					c++;
-//				}
-//			}
-//			l++;
-//		}
-//		// afficherMatrice(matriceTempo, 3);
-//
-//		if (matriceTempo.length == 2) {
-//			if ((((p + 1) + 1) % 2) == 0) {
-//				det += matriceSi[0][p]
-//						* ((matriceTempo[0][0] * matriceTempo[1][1]) - (matriceTempo[1][0] * matriceTempo[0][1]));
-//				// System.out.println(" + Le Déterminant est : " + (det) +
-//				// "");
-//			} else {
-//				det -= matriceSi[0][p]
-//						* ((matriceTempo[0][0] * matriceTempo[1][1]) - (matriceTempo[1][0] * matriceTempo[0][1]));
-//				// System.out.println(" - Le Déterminant est : " + (det) +
-//				// "");
-//			}
-//		} else {
-//			if ((((p + 1) + 1) % 2) == 0) {
-//				det += test(matriceTempo) * matriceSi[0][p];
-//			} else {
-//				det -= test(matriceTempo) * matriceSi[0][p];
-//			}
-//		}
-//	}
-//	// System.out.println("Determinant de la matrice finale : " + det +
-//	// "\n");
-//	return det;
-//}
+	private double[][] combinaisonLineaire(Matrice matriceSi) {
+		double[][] matriceTempo = null;
+
+		// recherche pour les lignes
+
+		// recherche pour les colonnes
+
+		return matriceTempo;
+	}
+
+	private Matrice calculMatriceExposant(Matrice matriceSi) {
+		Matrice matriceTempo = new Matrice(new double[matriceSi.getDimension()][matriceSi.getDimension()]);
+		int l = 0, c = 0;
+		double valTempo = 0;
+
+		l = 0;
+		for (int i = 0; i < matriceSi.getDimension(); i++) {
+			c = 0;
+			for (int j = 0; j < matriceSi.getDimension(); j++) {
+				int calcul = 0;
+				for (int k = 0; k < matriceSi.getDimension(); k++) {
+					calcul += matriceSi.getValueAt(i, k) * matriceSi.getValueAt(k, j);
+				}
+				valTempo = 0;
+			}
+
+			// matriceTempo.afficherMatrice(matriceTempo.getMatrice(),
+			// matriceTempo.getDimension());
+			return matriceTempo;
+		}
+	}
+
+static int[][] multiplier(int[][] MA, int[][] MB) throws Exception{
+	
+	int[][] MC;
+    
+	int l,c;
+	 
+	 l = 0;
+     for (int i = 0;i < MA.length;i++){ /// Ligne de MA
+    	 c = 0;
+        for (int n = 0;n < MB[0].length;n++){ /// colonne de  MB
+        	
+            int calcul= 0;
+            for (int m = 0;m < MB.length;m++){  /// colone de MA et ligne de MB
+            	
+           	 System.out.printf("%4d    * %4d", MA[i][m],MB[m][n]);
+           	
+                calcul += MA[i][m] * MB[m][n];
+                if (m == 0)
+               	System.out.printf("    + ");
+            }
+
+            System.out.printf(" = %4d   ",calcul);
+            MC[l][c] = calcul;
+            c++;
+        }
+        System.out.printf("n");
+        l++;
+     }
+     
+     
+	return MC;
+}
