@@ -1,4 +1,4 @@
-package version2;
+package exercice1;
 
 import java.util.Scanner;
 
@@ -21,17 +21,27 @@ public class Matrice {
 		this.dimension = this.matrice.length;
 	}
 
-	public void creaMatrice() {
+	private void creaMatrice() {
 		Scanner sc = new Scanner(System.in);
+		String str = "";
 
+		System.out.println("Veuillez saisir la dimension de la matrice :");
+		str = sc.nextLine();
 		this.demanderDimension();
 
-		this.matrice = new double[this.dimension][this.dimension];
+		double[][] matrice = new double[Integer.parseInt(str)][Integer.parseInt(str)];
+		System.out.println("Vous avez saisi : " + str);
 
+		for (int i = 0; i < (Integer.parseInt(str)); i++) {
+			for (int j = 0; j < Integer.parseInt(str); j++) {
+				System.out.println("Saisir la valeur pour les coordonnÃ©es : " + (i + 1) + " : " + (j + 1));
+				this.matrice[i][j] = Integer.parseInt(sc.nextLine());
+			}
+		}
 
 		for (int i = 0; i < this.dimension; i++) {
 			for (int j = 0; j < this.dimension; j++) {
-				System.out.println("Saisir la valeur pour les coordonnees (" + (i + 1) + " ; " + (j + 1) + ") :");
+				System.out.println("Saisir la valeur pour les coordonnées (" + (i + 1) + " ; " + (j + 1) + ") :");
 				try {
 					this.matrice[i][j] = sc.nextDouble();
 				} catch (IllegalArgumentException e) {
@@ -55,12 +65,8 @@ public class Matrice {
 
 		System.out.println(stringBuilder.toString());
 	}
-	
-	public void afficherMatrice() {
-		this.afficherMatrice(this.getMatrice(), this.getDimension());
-	}
 
-	public void demanderDimension() {
+	private void demanderDimension() {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Veuillez saisir la dimension de la matrice :");
@@ -68,7 +74,7 @@ public class Matrice {
 			this.dimension = sc.nextInt();
 
 			if (this.dimension <= 0) {
-				throw new IllegalArgumentException("Vous devez saisir un nombre entier positif superieur a 0.");
+				throw new IllegalArgumentException("Vous devez saisir un nombre entier positif supérieur à 0.");
 			}
 		} catch (IllegalArgumentException e) {
 			System.err.println("Vous devez saisir un nombre entier positif.");
@@ -97,7 +103,7 @@ public class Matrice {
 	public double getDeterminant() {
 		return this.determinant.getDeterminant(this);
 	}
-
+	
 	public void setMatrice(double[][] matrice) {
 		this.matrice = matrice;
 	}

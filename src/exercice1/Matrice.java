@@ -1,5 +1,6 @@
 package exercice1;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Matrice {
@@ -82,8 +83,105 @@ public class Matrice {
 		System.out.println("Vous avez saisi : " + this.dimension);
 	}
 
+	public boolean isInversible() {
+		return (this.getDeterminant() != 0.0);
+	}
+
+	public Matrice getInverse() throws Exception {
+		if (this.isInversible()) {
+			Matrice matriceInverse = this;
+
+			if (this.getDimension() == 2) {
+				double temp = matriceInverse.getValueAt(0, 0);
+				matriceInverse.setValueAt(0, 0, this.getValueAt(1, 1));
+				matriceInverse.setValueAt(0, 1, -this.getValueAt(0, 1));
+				matriceInverse.setValueAt(1, 0, -this.getValueAt(1, 0));
+				matriceInverse.setValueAt(1, 1, temp);
+			} else {
+				matriceInverse = new Matrice(new double[this.getDimension()][this.getDimension()]);
+				Matrice tmp = null;
+				double det = this.getDeterminant();
+
+//				// On remplit la liste avec des listes.
+//				for (int i = 0; i < this.getDimension(); i++) {
+//					temp.add(new ArrayList<>());
+//				}
+
+				for (int i = 0; i < this.getDimension(); i++) {
+					for (int j = 0; j < this.getDimension(); j++) {
+						tmp = this.getNewMatrice(i, j);
+						matriceInverse.setValueAt(i, j, Math.pow(-1, i + j) * (tmp.getDeterminant() / det));
+					}
+				} 
+			}
+
+			return matriceInverse.getMatriceTranspose();
+		} else {
+			throw new Exception("La matrice n'est pas réversible.");
+		}
+	}
+
+	// transpose la matrice
+	public Matrice getMatriceTranspose() {
+		Matrice a = new Matrice(new double[this.getDimension()][this.getDimension()]);
+		double tmp = 0;
+
+		for (int i = 0; i < a.getDimension(); i++)
+			for (int j = 0; j < a.getDimension(); j++) {
+				tmp = this.getValueAt(j, i);
+				a.setValueAt(i, j, tmp);
+			}
+
+		return a;
+	}
+
+	private Matrice getNewMatrice(int l, int c) {
+		Matrice mat = new Matrice(new double[this.getDimension() - 1][this.getDimension() - 1]);
+		int k = -1;
+		int m = 0;
+
+		for (int i = 0; i < this.getDimension(); i++) {
+			k++;
+
+			if (i == l) {
+				k--;
+				continue;
+			}
+
+			m = -1;
+
+			for (int j = 0; j < this.getDimension(); j++) {
+				m++;
+
+				if (j == c) {
+					m--;
+					continue;
+				}
+
+				mat.setValueAt(k, m, this.getValueAt(i, j));
+			}
+		}
+
+		return mat;
+	}
+
+	private List<List<Double>> createListValues(List<List<Double>> temp) {
+		// On ajoute toutes les valeurs de la matrice dans les listes.
+		for (int i = 0; i < this.getDimension(); i++) {
+			for (int j = 0; j < this.getDimension(); j++) {
+				temp.get(i).add(this.getValueAt(i, j));
+			}
+		}
+
+		return temp;
+	}
+
+	public double getMoinsUn(int l, int c, int valeur) {
+		return (l + c % 2 == 0) ? valeur : -valeur;
+	}
+
 	// ----------GETTERS--SETTERS-----------
-	
+
 	public int getDimension() {
 		return this.dimension;
 	}
