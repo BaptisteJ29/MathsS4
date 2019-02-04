@@ -1,4 +1,4 @@
-package version2;
+package exercice1;
 
 import java.util.List;
 import java.util.Scanner;
@@ -102,6 +102,10 @@ public class Matrice {
 				Matrice tmp = null;
 				double det = this.getDeterminant();
 
+//				// On remplit la liste avec des listes.
+//				for (int i = 0; i < this.getDimension(); i++) {
+//					temp.add(new ArrayList<>());
+//				}
 
 				for (int i = 0; i < this.getDimension(); i++) {
 					for (int j = 0; j < this.getDimension(); j++) {

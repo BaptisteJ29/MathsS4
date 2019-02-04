@@ -1,4 +1,4 @@
-package version2;
+package exercice1;
 
 public class DeterminantMatrice {
 
@@ -22,7 +22,7 @@ public class DeterminantMatrice {
 	private double calculDetMatriceCarreSup2(Matrice matriceSi) {
 		Matrice matriceTempo = new Matrice(new double[matriceSi.getDimension() - 1][matriceSi.getDimension() - 1]);
 		int l = 0, c = 0;
-		double determinant = 0.0;
+		double determinant = 0;
 
 		for (int p = 0; p < matriceSi.getDimension(); p++) {
 			l = 0;
