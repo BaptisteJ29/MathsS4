@@ -66,6 +66,22 @@ public class Matrice {
 
 		System.out.println(stringBuilder.toString());
 	}
+	
+	public void afficherMatriceInverse(double[][] matrice, int dimension, double determinant) {
+		StringBuilder stringBuilder = new StringBuilder("(1/");
+		stringBuilder.append(determinant);
+		stringBuilder.append(") * \n");
+		
+		for (int i = 0; i < matrice.length; i++) {
+			stringBuilder.append("| ");
+			for (int j = 0; j < matrice[i].length; j++) {
+				stringBuilder.append(this.getValueAt(i, j) + " ");
+			}
+			stringBuilder.append("|\n");
+		}
+
+		System.out.println(stringBuilder.toString());
+	}
 
 	private void demanderDimension() {
 		Scanner sc = new Scanner(System.in);
@@ -111,6 +127,7 @@ public class Matrice {
 				} 
 			}
 
+			this.afficherMatriceInverse(this.getMatrice(), this.getDimension(), this.getDeterminant());
 			return matriceInverse.getMatriceTranspose();
 		} else {
 			throw new Exception("La matrice n'est pas réversible.");
@@ -162,7 +179,6 @@ public class Matrice {
 	}
 
 	private List<List<Double>> createListValues(List<List<Double>> temp) {
-		// On ajoute toutes les valeurs de la matrice dans les listes.
 		for (int i = 0; i < this.getDimension(); i++) {
 			for (int j = 0; j < this.getDimension(); j++) {
 				temp.get(i).add(this.getValueAt(i, j));
