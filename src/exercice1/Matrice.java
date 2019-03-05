@@ -189,6 +189,10 @@ public class Matrice {
 	public double[][] getMatrice() {
 		return matrice;
 	}
+	
+	public DeterminantMatrice getDeterminantMatrie() {
+		return this.determinant;
+	}
 
 	public double getValueAt(int x, int y) {
 		return this.matrice[x][y];

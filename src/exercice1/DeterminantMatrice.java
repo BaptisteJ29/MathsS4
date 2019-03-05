@@ -98,14 +98,14 @@ public class DeterminantMatrice {
 
 	public String comparaisonDet(Matrice matriceSi, int puissance) {
 		String bool = null;
-		
+
 		if (Math.pow(calculDeterminant(matriceSi),
 				puissance) == calculDeterminant(calculMatriceExposant(matriceSi, matriceSi, puissance))) {
 			bool = "Vrai";
 		} else {
 			bool = "Faux";
 		}
-		
+
 		return bool + "\ndet(matrice)^" + puissance + " = " + Math.pow(calculDeterminant(matriceSi), puissance)
 				+ " \ndet(matrice^" + puissance + ") = "
 				+ calculDeterminant(calculMatriceExposant(matriceSi, matriceSi, puissance));
